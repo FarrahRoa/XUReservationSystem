@@ -127,12 +127,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
-MEDIA_URL = "/media"
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 
 AUTH_USER_MODEL = "Room_Booking.User"
-AUTHENTICATION_BACKENDS = ['RoomBooking.auth_backend.EmailBackend']
+AUTHENTICATION_BACKENDS = ['Room_Booking.auth_backend.EmailBackend']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -141,3 +141,4 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+

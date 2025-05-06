@@ -8,7 +8,7 @@ class RoomImageSerializer(serializers.ModelSerializer):
         model = RoomImage
         fields = ['id','caption','room']
 
-class RoomSerializer(serializers.HyperlinkedModelSerializers):
+class RoomSerializer(serializers.HyperlinkedModelSerializer):
     images = RoomImageSerializer(many=True, read_only =True)
     class Meta:
         model = Room
