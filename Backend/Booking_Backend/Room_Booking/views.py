@@ -7,6 +7,7 @@ from rest_framework.reverse import reverse
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth import authenticate
 from rest_framework import permissions
+from rest_framework.exceptions import PermissionDenied
 from .permissions import IsAdminOrReadOnly
 from .models import Room, OccupiedDate, User
 from .serializers import RoomSerializer, OccupiedDateSerializer, UserSerializer
@@ -46,6 +47,7 @@ class OccupiedDatesList(generics.ListCreateAPIView):
 class OccupiedDatesDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = OccupiedDate.objects.all()
     serializer_class = OccupiedDateSerializer
+    permission_classes = [IsAdminOrReadOnly]
     
 
 class UserList(generics.ListAPIView):
@@ -72,7 +74,7 @@ class UserDetail(generics.RetrieveAPIView):
         if obj == user or user.is_admin or user.is_superuser:
             return obj
         else:
-            pass
+            raise permissions.PermissionDenied("You do not have permission to access this user's details.")
 
 class Register(generics.CreateAPIView):
     queryset = User.objects.all()
